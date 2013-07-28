@@ -25,10 +25,12 @@ Installing
 
 This will install all the required tools and deps for running the app.
 
-*Note*: 
+*Note*:
 This guide assumes you have [Node.js](http://nodejs.org) and [Git](http://git-scm.com/) installed.
 You should also have [Ruby](http://www.ruby-lang.org/) and [Compass](http://compass-style.org/) if you plan to use Sass.
 
+In order for this to work you'll need to build Knockout.js yourself by running ```./build.sh``` from ```app/bower_components/knockout/build```.
+This requires a Bash shell, so if you're on Windows you'll need Git Bash (include with Git for Windows).
 
 *Quirks*: 
 If you internet connection is slow (< 250kbps) some deps might not install correctly due to npm/bower hanging.
