@@ -7,8 +7,10 @@ Todos
 ==
 
 - [X] Add installing/debugging/building information.
-- [ ] Get data from server.
+- [X] Get data from server.
 - [ ] Write unit tests.
+- [ ] Overhaul UI.
+- [ ] Make tasks (client-side) persistant.
 
 
 Installing

@@ -22,12 +22,12 @@
         <div class="container">
             <div class="row-fluid hero-unit">
                 <div class="span6 offset3">
-                    <form data-bind="submit: addNewTask">
+                    <form data-bind="submit: addTask">
                         <fieldset>
                             <legend>
                                 <h1>Todo List</h1>
                             </legend>
-                            <input class="span12" type="text" id="task-title" name="task-title" data-bind="value: newTaskTitle" placeholder="What are you tasks today?">
+                            <input class="span12" type="text" id="task-title" name="task-title" data-bind="value: newTask().title" placeholder="Press &lt;ENTER&gt; to add a new task.">
                         </fieldset>
                     </form>
                 </div>

@@ -3,40 +3,47 @@ class Task
 		@title = ko.observable(title);
 		@done = ko.observable(isDone);
 
+# Maps an object to a Task.
+Task.fromPOCO = (poco) ->
+	title = poco.title || ''
+	done = poco.done || false
+
+	return new Task title, done
+
 class AppViewModel
 	constructor: ->
-		@newTaskTitle = ko.observable ''
-		@tasks = ko.observableArray([])
+		# This is required due to how scope works in JavaScript.
+		self = @
 
-		@tasks.push new Task t.title, t.done for t in [
-			{
-				title: '(Re-)Learn Knockout.js'
-				done: true
-			}
-			{
-				title: 'Practice Knockout.js'
-				done: false
-			}
-			{
-				title: '???'
-				done: false
-			}
-			{
-				title: 'Profit'
-				done: false
-			}
-		]
-		console.dir @tasks()
+		self.newTask = ko.observable new Task()
 
-	addNewTask: ->
-		newTask = new Task @newTaskTitle()
+		self.tasks = ko.observableArray([])
 
-		console.log newTask.title()
-		console.log newTask.done()
+		self.addTask = ->
 
-		@tasks.push newTask
+			title = self.newTask().title()
+
+			self.tasks.push new Task title, false
+
+			# Clear title
+			self.newTask().title('')
+
+		self.fetch = (serviceUrl = 'http://localhost:9000/demo_tasks.json') ->
+			# Request JSON from serviceUrl
+			$.getJSON serviceUrl, 
+				(data) -> 
+					if data instanceof Array isnt true
+						throw 'Service should return an array.'
+
+					data.forEach (t) ->
+						self.tasks.push Task.fromPOCO t
+				,
+				(err) ->
+					throw err
 
 
 window.App = new AppViewModel()
+
+App.fetch()
 
 ko.applyBindings App
