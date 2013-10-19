@@ -21,7 +21,7 @@ class AppViewModel
         @tasks.push new Task title, false
 
         # Clear task container.
-        @newTask.title('')
+        @newTask().title('')
 
      fetch: (url = 'http://localhost:9000/demo_tasks.json') =>
         $.getJSON url,
