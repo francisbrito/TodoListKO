@@ -1,7 +1,7 @@
 class Task
 	constructor: (title, isDone = false) ->
-		@title = ko.observable(title);
-		@done = ko.observable(isDone);
+		@title = ko.observable(title)
+		@done = ko.observable(isDone)
 
 # Maps an object to a Task.
 Task.fromPOCO = (poco) ->
@@ -9,38 +9,31 @@ Task.fromPOCO = (poco) ->
 	done = poco.done || false
 
 	return new Task title, done
-
 class AppViewModel
-	constructor: ->
-		# This is required due to how scope works in JavaScript.
-		self = @
+    constructor: ->
+        @newTask = ko.observable new Task()
+        @tasks   = ko.observableArray([])
 
-		self.newTask = ko.observable new Task()
+    addTask: =>
+        title = @newTask().title()
 
-		self.tasks = ko.observableArray([])
+        # Adds a new task to the collection.
+        @tasks.push new Task title, false
 
-		self.addTask = ->
+        # Clear task container.
+        @newTask.title('')
 
-			title = self.newTask().title()
+     fetch: (url = 'http://localhost:9000/demo_tasks.json') =>
+        $.getJSON url,
+            (data) ->
+                if data instanceof Array inst true
+                    throw 'Service should return an array.'
 
-			self.tasks.push new Task title, false
-
-			# Clear title
-			self.newTask().title('')
-
-		self.fetch = (serviceUrl = 'http://localhost:9000/demo_tasks.json') ->
-			# Request JSON from serviceUrl
-			$.getJSON serviceUrl, 
-				(data) -> 
-					if data instanceof Array isnt true
-						throw 'Service should return an array.'
-
-					data.forEach (t) ->
-						self.tasks.push Task.fromPOCO t
-				,
-				(err) ->
-					throw err
-
+                data.forEach (t) ->
+                    @tasks.push Task.fromPOCO t
+            ,
+            (err) ->
+                throw {msg: 'Unable to fetch tasks.', inner: err}
 
 window.App = new AppViewModel()
 
