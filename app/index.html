@@ -27,7 +27,7 @@
             </fieldset>
         </form>
         <ul class="tasks" data-bind="foreach: tasks">
-            <li class="task" data-bind="css: { 'done': done }">
+            <li class="task" data-bind="css: { 'task-done': done }">
                 <input type="checkbox" data-bind="checked: done">
                 <h4 data-bind="text: title"></h4>
             </li>
