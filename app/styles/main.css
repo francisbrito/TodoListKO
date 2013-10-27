@@ -7,3 +7,12 @@ body {
 .task-done {
     text-decoration: line-through; 
 }
+
+ul.tasks {
+    list-style: none;
+    padding: 0;
+}
+
+.task input[type=checkbox], .task h4 {
+    display: inline;
+}
