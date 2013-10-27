@@ -17,7 +17,7 @@ Installing
 ==
 
 ``` 
-  git clone https://github.com/frxbr/TodoListKO
+  git clone https://github.com/francisbrito/TodoListKO
   cd TodoListKO
   npm install -g grunt-cli bower yo
   npm install && bower install
